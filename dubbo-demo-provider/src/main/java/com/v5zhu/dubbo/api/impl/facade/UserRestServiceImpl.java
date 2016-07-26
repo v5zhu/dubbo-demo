@@ -2,6 +2,7 @@ package com.v5zhu.dubbo.api.impl.facade;
 
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.alibaba.fastjson.JSONObject;
 import com.v5zhu.dubbo.api.UserService;
 import com.v5zhu.dubbo.api.facade.UserRestService;
 import com.v5zhu.dubbo.dto.UserDto;
@@ -30,7 +31,9 @@ public class UserRestServiceImpl implements UserRestService {
     @Path("user")
     @Override
     public Response findByLoginName(@QueryParam("loginName") String loginName) {
+        logger.info("请求参数:[{}]",loginName);
         UserDto userDto = userService.findByLoginName(loginName);
+        logger.info("请求返回的数据:[{}]", JSONObject.toJSONString(userDto));
         return Response.status(Response.Status.OK).entity(userDto).build();
     }
 }
